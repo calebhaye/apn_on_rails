@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["markbates", "Rebecca Nesson"]
+  s.authors = ["markbates", "Rebecca Nesson", "Caleb Adam Haye"]
   s.date = %q{2011-01-04}
   s.description = %q{APN on Rails is a Ruby on Rails gem that allows you to
-easily add Apple Push Notification (iPhone) support to your Rails application.
+easily add Apple Push Notification (iPhone) support to your Rails application.  This version includes an association between an assumed User model and APN::Device
 }
   s.email = %q{tech-team@prx.org}
   s.extra_rdoc_files = [
@@ -80,7 +80,7 @@ easily add Apple Push Notification (iPhone) support to your Rails application.
     "spec/rails_root/config/apple_push_notification_development.pem",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/PRX/apn_on_rails}
+  s.homepage = %q{http://github.com/calebhaye/apn_on_rails}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Apple Push Notifications on Rails}
