@@ -144,7 +144,7 @@ class APN::App < APN::Base
   
   
   protected
-  def log_connection_exception(ex)
+  def self.log_connection_exception(ex)
     puts ex.message
   end
     
