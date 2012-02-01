@@ -38,26 +38,28 @@ class APN::App < APN::Base
   end
   
   def self.send_notifications_for_cert(the_cert, app_id)
+    # unless self.unsent_notifications.nil? || self.unsent_notifications.empty?
+      if (app_id == nil)
+        conditions = "app_id is null"
+      else 
+        conditions = ["app_id = ?", app_id]
+      end
       begin
-        APN::Connection.open_for_delivery({:cert => the_cert}) do |conn, sock|
-          devs = APN::Device.where(:app_id => app_id)
-          unset = APN::Notification.where(:sent_at => nil).where(:device_id => devs.all.collect {|d| d.id}).order(:device_id, :created_at)
-          unset.each do |noty|
-            Rails.logger.debug "Sending notification ##{noty.id}"
-            begin
+        APN::Device.find_each(:conditions => conditions) do |dev|
+          APN::Connection.open_for_delivery({:cert => the_cert}) do |conn, sock|
+            dev.unsent_notifications.each do |noty|
               conn.write(noty.message_for_sending)
-            rescue => e
-              Rails.logger.error "Cannot send notification ##{noty.id}: " + e.message
-              return if e.message == "Broken pipe"
+              noty.sent_at = Time.now
+              noty.save
             end
-            noty.sent_at = Time.now
-            noty.save
           end
+          sleep(1)
         end
       rescue Exception => e
         log_connection_exception(e)
       end
-    end
+    # end   
+  end
   
   def send_group_notifications
     if self.cert.nil? 

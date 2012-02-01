@@ -59,7 +59,7 @@ module APN
         ssl.connect
   
         yield ssl, sock if block_given?
-  
+      ensure
         ssl.close
         sock.close
       end

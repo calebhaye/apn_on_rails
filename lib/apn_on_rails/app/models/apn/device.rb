@@ -15,7 +15,7 @@ class APN::Device < APN::Base
   has_many :unsent_notifications, :class_name => 'APN::Notification', :conditions => 'sent_at is null'
   belongs_to :user
   
-  validates_uniqueness_of :token, :scope => :app_id
+  validates_uniqueness_of :token, :scope => :artist_id
   validates_format_of :token, :with => /^[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}\s[a-z0-9]{8}$/
   
   before_create :set_last_registered_at
